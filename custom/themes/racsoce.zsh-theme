@@ -1,32 +1,37 @@
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
-local user_host="%B%(!.%{$fg[red]%}.%{$fg[green]%})%n@%m%{$reset_color%} "
-local user_symbol='%(!.#.$)'
-local current_dir="%B%{$fg[blue]%}%~ %{$reset_color%}"
+# fino-time.zsh-theme
 
-local vcs_branch='$(git_prompt_info)$(hg_prompt_info)'
-local rvm_ruby='$(ruby_prompt_info)'
-local venv_prompt='$(virtualenv_prompt_info)'
+# Use with a dark background and 256-color terminal!
+# Meant for people with RVM and git. Tested only on OS X 10.7.
 
-ZSH_THEME_RVM_PROMPT_OPTIONS="i v g"
+# You can set your computer name in the ~/.box-name file if you want.
 
-PROMPT="╭─${user_host}${current_dir}${rvm_ruby}${vcs_branch}${venv_prompt}
-╰─%B${user_symbol}%b "
-RPROMPT="%B${return_code}%b"
+# Borrowing shamelessly from these oh-my-zsh themes:
+#   bira
+#   robbyrussell
+#
+# Also borrowing from http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
-ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}●%{$fg[yellow]%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[yellow]%}"
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+}
 
-ZSH_THEME_HG_PROMPT_PREFIX="$ZSH_THEME_GIT_PROMPT_PREFIX"
-ZSH_THEME_HG_PROMPT_SUFFIX="$ZSH_THEME_GIT_PROMPT_SUFFIX"
-ZSH_THEME_HG_PROMPT_DIRTY="$ZSH_THEME_GIT_PROMPT_DIRTY"
-ZSH_THEME_HG_PROMPT_CLEAN="$ZSH_THEME_GIT_PROMPT_CLEAN"
+function prompt_char {
+    git branch >/dev/null 2>/dev/null && echo '⠠⠵' && return
+    echo '○'
+}
 
-ZSH_THEME_RUBY_PROMPT_PREFIX="%{$fg[red]%}‹"
-ZSH_THEME_RUBY_PROMPT_SUFFIX="› %{$reset_color%}"
+function box_name {
+  local box="${SHORT_HOST:-$HOST}"
+  [[ -f ~/.box-name ]] && box="$(< ~/.box-name)"
+  echo "${box:gs/%/%%}"
+}
 
-ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[green]%}‹"
-ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="› %{$reset_color%}"
-ZSH_THEME_VIRTUALENV_PREFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX"
-ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
+PROMPT="╭─%{$FG[033]%}%n%{$reset_color%} %{$FG[131]%}@%{$reset_color%} %{$FG[033]%}$(box_name)%{$reset_color%} %{$FG[239]%}in%{$reset_color%} %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}\$(git_prompt_info)\$(ruby_prompt_info) %D - %*
+╰─\$(virtualenv_info)\$(prompt_char) "
+
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$FG[239]%}on%{$reset_color%} %{$fg[255]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[202]%}✘✘✘"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$FG[040]%}✔"
+ZSH_THEME_RUBY_PROMPT_PREFIX=" %{$FG[239]%}using%{$FG[243]%} ‹"
+ZSH_THEME_RUBY_PROMPT_SUFFIX="›%{$reset_color%}"
