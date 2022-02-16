@@ -107,4 +107,8 @@ alias n=nslookup
 alias r=resolveip
 alias p=ping
 
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
+
 export ROLE_ID_ESS=89eaf94e-a41e-09f8-f074-94db3a63ca1f
