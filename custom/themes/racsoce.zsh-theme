@@ -16,7 +16,7 @@ function virtualenv_info {
 }
 
 function prompt_char {
-    git branch >/dev/null 2>/dev/null && echo '⠠⠵' && return
+    git branch >/dev/null 2>/dev/null && echo '⠠⠵ ' && return
     #echo '\u26a1'
 }
 
@@ -27,7 +27,7 @@ function box_name {
 }
 
 PROMPT="%{%F{yellow}%}╭─%n%{$reset_color%}%{%F{red}%}@%{$reset_color%}%{%F{yellow}%}$(box_name)%{$reset_color%} %{%F{white}%}➜ %{$reset_color%} %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}\$(git_prompt_info)\$(ruby_prompt_info)
-%{%F{yellow}%}╰─\$(prompt_char)➤ %{$reset_color%} "
+%{%F{yellow}%}╰\$(prompt_char)➥%{$reset_color%} "
 
 RPROMPT="⌚ %{$fg_bold[red]%}%*%{$reset_color%}"
 
