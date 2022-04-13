@@ -26,10 +26,10 @@ function box_name {
   echo "${box:gs/%/%%}"
 }
 
-PROMPT="%{%F{yellow}%}╭─%n%{$reset_color%}%{%F{red}%}@%{$reset_color%}%{%F{yellow}%}$(box_name)%{$reset_color%} %{%F{white}%}➜ %{$reset_color%} %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}\$(git_prompt_info)\$(ruby_prompt_info)
+PROMPT="%{%F{yellow}%}╭─%n%{$reset_color%}%{%F{red}%}@%{$reset_color%}%{%F{yellow}%}$(box_name)%{$reset_color%} ⌚ %{$fg_bold[red]%}%*%{$reset_color%} %{%F{white}%}➜ %{$reset_color%} %{$terminfo[bold]$FG[226]%}%~%{$reset_color%}\$(git_prompt_info)\$(ruby_prompt_info)
 %{%F{yellow}%}╰─\$(prompt_char)%{$fg_bold[cyan]%}❯%{$reset_color%} "
 
-RPROMPT="⌚ %{$fg_bold[red]%}%*%{$reset_color%}"
+#RPROMPT="⌚ %{$fg_bold[red]%}%*%{$reset_color%}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$FG[239]%}on%{$reset_color%} %{$fg[255]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
