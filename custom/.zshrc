@@ -101,7 +101,6 @@ unsetopt share_history
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias l='ls --group-directories-first -las'
 alias ll='ls --group-directories-first -lh'
-alias tr=traceroute
 alias tp=tracepath
 alias t=telnet
 alias n=nslookup
